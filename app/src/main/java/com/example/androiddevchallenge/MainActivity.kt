@@ -18,11 +18,19 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.androiddevchallenge.ui.components.DogAdoptItem
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
@@ -39,9 +47,39 @@ class MainActivity : AppCompatActivity() {
 // Start building your app here!
 @Composable
 fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "Pet Adoption")
+                }
+            )
+        }
+    ) { innerPadding ->
+        BodyContent(
+            Modifier
+                .padding(innerPadding)
+                .padding(8.dp)
+        )
     }
+}
+
+@Composable
+fun ImageList(size: Int, scrollState: LazyListState) {
+    LazyColumn(state = scrollState) {
+        items(size) { itemScope ->
+            DogAdoptItem(itemScope + 1)
+        }
+    }
+}
+
+
+@Composable
+fun BodyContent(modifier: Modifier = Modifier) {
+    val listSize = 100
+    val scrollState = rememberLazyListState()
+
+    ImageList(size = listSize, scrollState = scrollState)
 }
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
