@@ -1,7 +1,9 @@
 package com.example.androiddevchallenge.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -10,37 +12,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun DogAdoptItem(counter: Int = 1) {
-    Column {
-        Row(modifier = Modifier.padding(8.dp)) {
-            CoilImage(
-                data = "https://picsum.photos/200",
-                contentDescription = "image of dog",
-                modifier = Modifier
-                    .size(80.dp)
-                    .clip(RoundedCornerShape(4.dp))
+fun DogAdoptItem(modifier: Modifier = Modifier, counter: Int = 1) {
+    Column(modifier = modifier
+        .padding(bottom = 16.dp)
+        .clickable { }) {
+        CoilImage(
+            data = "https://static.toiimg.com/thumb/msid-60132235,imgsize-169468,width-800,height-600,resizemode-75/60132235.jpg",
+            contentDescription = "image of dog",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .height(220.dp)
+                .clip(RoundedCornerShape(8.dp)),
+            contentScale = ContentScale.Crop
+        )
+        Column(modifier = Modifier.padding(8.dp)) {
+            Text(
+                text = "Available Dog $counter",
+                fontWeight = FontWeight.Bold,
+                fontSize = 22.sp
             )
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 8.dp)
-            ) {
-                Text(text = "Available Dog $counter", fontWeight = FontWeight.Bold)
-                Text(
-                    text = "Gender : " + if (counter % 2 == 0) "Male" else "Female",
-                    style = MaterialTheme.typography.subtitle1
-                )
-            }
+            Text(
+                text = "Gender : " + if (counter % 2 == 0) "Male" else "Female",
+                fontWeight = FontWeight.Light,
+                fontSize = 14.sp
+            )
         }
-        Spacer(modifier = Modifier.height(2.dp))
-        Divider(color = Color.Black)
     }
 }
 

@@ -68,7 +68,7 @@ fun MyApp() {
 fun ImageList(size: Int, scrollState: LazyListState) {
     LazyColumn(state = scrollState) {
         items(size) { itemScope ->
-            DogAdoptItem(itemScope + 1)
+            DogAdoptItem(modifier = Modifier, counter = itemScope + 1)
         }
     }
 }
