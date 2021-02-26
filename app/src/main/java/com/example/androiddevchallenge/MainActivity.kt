@@ -92,7 +92,7 @@ fun MyApp() {
             ) { backStackEntry ->
                 val dogId = backStackEntry.arguments?.getInt("dogId")!!
                 val dogName = backStackEntry.arguments?.getString("dogName")
-                DogDetail(dogId = dogId)
+                DogDetail(dogId = dogId, onclick = {})
             }
         }
     }

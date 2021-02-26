@@ -21,7 +21,7 @@ fun DogList(modifier: Modifier = Modifier, navController: NavController) {
             .padding(8.dp),
         onClick = { id ->
             navController.navigate(route = "detail/$id")
-        }
+        },
     )
 }
 
