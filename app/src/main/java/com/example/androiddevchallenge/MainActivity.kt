@@ -22,14 +22,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.components.DogAdoptItem
+import com.example.androiddevchallenge.ui.screens.DogDetail
+import com.example.androiddevchallenge.ui.screens.DogList
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
@@ -46,39 +55,56 @@ class MainActivity : AppCompatActivity() {
 // Start building your app here!
 @Composable
 fun MyApp() {
+    val navController = rememberNavController()
+
+    val (canPop, setCanPop) = remember { mutableStateOf(false) }
+
+    navController.addOnDestinationChangedListener { controller, _, _ ->
+        setCanPop(controller.previousBackStackEntry != null)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(text = "Pet Adoption")
-                }
+                },
+                navigationIcon = if (canPop) {
+                    {
+                        IconButton(
+                            onClick = {
+                                navController.popBackStack()
+                            }
+                        ) {
+                            Icon(Icons.Outlined.ArrowBack, "back")
+                        }
+                    }
+                } else {
+                    null
+                },
             )
         }
-    ) { innerPadding ->
-        BodyContent(
-            Modifier
-                .padding(innerPadding)
-                .padding(8.dp)
-        )
-    }
-}
+    ) {
+        NavHost(
+            navController = navController,
+            startDestination = "home"
+        ) {
+            composable("home") {
+                DogList(navController = navController)
+            }
 
-@Composable
-fun ImageList(size: Int, scrollState: LazyListState, modifier: Modifier) {
-    LazyColumn(state = scrollState) {
-        items(size) { itemScope ->
-            DogAdoptItem(modifier = modifier, counter = itemScope + 1)
+            composable(
+                "detail/{dogId}",
+                arguments = listOf(navArgument("dogId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val dogId = backStackEntry.arguments?.getInt("dogId")!!
+                val dogName = backStackEntry.arguments?.getString("dogName")
+                DogDetail(dogId = dogId)
+            }
         }
     }
 }
 
-@Composable
-fun BodyContent(modifier: Modifier = Modifier) {
-    val listSize = 100
-    val scrollState = rememberLazyListState()
-
-    ImageList(size = listSize, scrollState = scrollState, modifier = modifier)
-}
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable

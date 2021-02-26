@@ -30,18 +30,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.androiddevchallenge.model.Dog
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun DogAdoptItem(modifier: Modifier = Modifier, counter: Int = 1) {
+fun DogAdoptItem(
+    modifier: Modifier = Modifier,
+    counter: Int = 1,
+    dog: Dog,
+    onClick: (Int) -> Unit
+) {
     Column(
         modifier = modifier
             .padding(bottom = 16.dp)
-            .clickable { }
+            .clickable { onClick(counter) }
     ) {
         CoilImage(
-            data = "https://static.toiimg.com/thumb/msid-60132235,imgsize-169468,width-800,height-600,resizemode-75/60132235.jpg",
+            data = dog.img,
             contentDescription = "image of dog",
             modifier = Modifier
                 .fillMaxWidth()
@@ -52,12 +58,12 @@ fun DogAdoptItem(modifier: Modifier = Modifier, counter: Int = 1) {
         )
         Column(modifier = Modifier.padding(8.dp)) {
             Text(
-                text = "Available Dog $counter",
+                text = dog.name,
                 fontWeight = FontWeight.Bold,
                 fontSize = 22.sp
             )
             Text(
-                text = "Gender : " + if (counter % 2 == 0) "Male" else "Female",
+                text = dog.gender,
                 fontWeight = FontWeight.Light,
                 fontSize = 14.sp
             )
@@ -69,7 +75,7 @@ fun DogAdoptItem(modifier: Modifier = Modifier, counter: Int = 1) {
 @Composable
 fun DogLightPreview() {
     MyTheme {
-        DogAdoptItem()
+        DogAdoptItem(dog = Dog(id = 1, name = "", gender = "", img = ""), onClick = {})
     }
 }
 
@@ -77,6 +83,6 @@ fun DogLightPreview() {
 @Composable
 fun DogDarkPreview() {
     MyTheme(darkTheme = true) {
-        DogAdoptItem()
+        DogAdoptItem(dog = Dog(id = 1, name = "", gender = "", img = ""), onClick = {})
     }
 }
