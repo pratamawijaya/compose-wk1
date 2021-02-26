@@ -45,13 +45,13 @@ fun BodyContent(modifier: Modifier = Modifier, onClick: (Int) -> Unit) {
         Dog(
             id = 1,
             name = "Dogo",
-            gender = "male",
+            gender = "Male",
             img = "https://ggsc.s3.amazonaws.com/images/uploads/The_Science-Backed_Benefits_of_Being_a_Dog_Owner.jpg"
         ),
         Dog(
             id = 2,
             name = "Json",
-            gender = "male",
+            gender = "Male",
             img = "https://i.insider.com/5484d9d1eab8ea3017b17e29?width=1100&format=jpeg&auto=webp"
         ),
         Dog(
@@ -62,14 +62,14 @@ fun BodyContent(modifier: Modifier = Modifier, onClick: (Int) -> Unit) {
         ),
         Dog(
             id = 4,
-            name = "Dogo",
-            gender = "male",
+            name = "Sparta",
+            gender = "Male",
             img = "https://ggsc.s3.amazonaws.com/images/uploads/The_Science-Backed_Benefits_of_Being_a_Dog_Owner.jpg"
         ),
         Dog(
             id = 5,
-            name = "Json",
-            gender = "male",
+            name = "Abigail",
+            gender = "Female",
             img = "https://i.insider.com/5484d9d1eab8ea3017b17e29?width=1100&format=jpeg&auto=webp"
         ),
         Dog(
