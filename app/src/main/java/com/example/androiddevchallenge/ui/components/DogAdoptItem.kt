@@ -17,11 +17,18 @@ package com.example.androiddevchallenge.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Female
+import androidx.compose.material.icons.filled.Male
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,14 +44,13 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 @Composable
 fun DogAdoptItem(
     modifier: Modifier = Modifier,
-    counter: Int = 1,
     dog: Dog,
-    onClick: (Int) -> Unit
+    onClick: (Dog) -> Unit
 ) {
     Column(
         modifier = modifier
             .padding(bottom = 16.dp)
-            .clickable { onClick(counter) }
+            .clickable { onClick(dog) }
     ) {
         CoilImage(
             data = dog.img,
@@ -62,11 +68,24 @@ fun DogAdoptItem(
                 fontWeight = FontWeight.Bold,
                 fontSize = 22.sp
             )
-            Text(
-                text = dog.gender,
-                fontWeight = FontWeight.Light,
-                fontSize = 14.sp
-            )
+            Row {
+                val iconMale = Icons.Filled.Male
+                val iconFemale = Icons.Filled.Female
+                Text(
+                    text = "Gender : ",
+                    fontSize = 14.sp
+                )
+                Text(
+                    text = dog.gender,
+                    fontSize = 14.sp
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Icon(
+                    imageVector = if (dog.gender.toLowerCase() == "male"
+                    ) iconMale else iconFemale,
+                    contentDescription = "icons-gender"
+                )
+            }
         }
     }
 }

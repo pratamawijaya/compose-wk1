@@ -95,7 +95,6 @@ fun MyApp() {
                 arguments = listOf(navArgument("dogId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val dogId = backStackEntry.arguments?.getInt("dogId")!!
-                val dogName = backStackEntry.arguments?.getString("dogName")
                 DogDetail(dogId = dogId, onclick = {})
             }
         }

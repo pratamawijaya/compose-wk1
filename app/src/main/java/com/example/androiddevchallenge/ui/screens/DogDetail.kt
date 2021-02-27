@@ -15,13 +15,21 @@
  */
 package com.example.androiddevchallenge.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Female
+import androidx.compose.material.icons.filled.Male
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,20 +38,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.androiddevchallenge.data.DogRepository
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
 fun DogDetail(
     dogId: Int,
-    dogName: String = "",
-    dogImage: String = "",
-    dogGender: String = "",
     onclick: () -> Unit
 ) {
+    val dog = DogRepository.getDog(dogId)
+
     Column {
         CoilImage(
-            data = "https://ggsc.s3.amazonaws.com/images/uploads/The_Science-Backed_Benefits_of_Being_a_Dog_Owner.jpg",
+            data = dog?.img ?: "",
             contentDescription = "image of dog",
             modifier = Modifier
                 .fillMaxWidth()
@@ -54,12 +62,39 @@ fun DogDetail(
         )
         Column(modifier = Modifier.padding(8.dp)) {
             Text(
-                text = "Dog Name",
+                text = dog?.name ?: "",
                 fontWeight = FontWeight.Bold,
                 fontSize = 22.sp
             )
-            Button(onClick = { onclick }) {
-                Text(text = "Adopt Me")
+            Spacer(modifier = Modifier.padding(top = 8.dp))
+
+            Row {
+                val iconMale = Icons.Filled.Male
+                val iconFemale = Icons.Filled.Female
+
+                Text(text = "Gender  : ${dog?.gender}")
+                Spacer(modifier = Modifier.width(4.dp))
+                Icon(
+                    imageVector = if (dog!!.gender.toLowerCase() == "male"
+                    ) iconMale else iconFemale,
+                    contentDescription = "icons-gender"
+                )
+            }
+
+            Spacer(modifier = Modifier.padding(top = 8.dp))
+
+            Text(text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, ")
+
+            Spacer(modifier = Modifier.padding(top = 8.dp))
+
+            Button(
+                onClick = {
+//                Toast.makeText(co, "hello", Toast.LENGTH_SHORT).show()
+                    Log.d("debug", "debug click ")
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Adopt Me")
             }
         }
     }

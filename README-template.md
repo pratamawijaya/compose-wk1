@@ -18,6 +18,9 @@
 <!-- You can add more screenshots here if you like -->
 <img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
 
+## Runnig SpotlessApply
+`./gradlew app:spotlessApply`
+
 ## License
 ```
 Copyright 2020 The Android Open Source Project
