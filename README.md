@@ -1,5 +1,8 @@
 # Template repository
 
+[![Check](https://github.com/pratamawijaya/compose-wk1/actions/workflows/Check.yaml/badge.svg)](https://github.com/pratamawijaya/compose-wk1/actions/workflows/Check.yaml)
+
+
 Template repository for the Jetpack Compose [#AndroidDevChallenge](https://developer.android.com/dev-challenge).
 
 ## Getting started
